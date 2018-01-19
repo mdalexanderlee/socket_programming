@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 	}
 	fp = fopen(argv[1], "r");
 	fgets(buf, MAX_FILE_SIZE, fp); //Retrieve the data to send over the connection.
-	printf("File data: %s", buf);
+	printf("File data: %s\n", buf);
 
 	memset(&hints, 0, sizeof hints);
 	hints.ai_family = AF_UNSPEC;
