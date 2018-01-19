@@ -1,1 +1,1 @@
-https://github.com/mdalexanderlee/socket_programming.git
+http://beej.us/guide/bgnet/html/single/bgnet.html#clientserver
