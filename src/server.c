@@ -19,6 +19,8 @@
 
 #define BACKLOG 10	 // how many pending connections queue will hold
 
+#define MAX_FILE_SIZE (100) //maximum file size to send over connection
+
 void sigchld_handler(int s)
 {
 	(void)s; // quiet unused variable warning
@@ -42,7 +44,7 @@ void *get_in_addr(struct sockaddr *sa)
 	return &(((struct sockaddr_in6*)sa)->sin6_addr);
 }
 
-int main(void)
+int main(int argc, char *argv[])
 {
 	int sockfd, new_fd;  // listen on sock_fd, new connection on new_fd
 	struct addrinfo hints, *servinfo, *p;
@@ -52,6 +54,16 @@ int main(void)
 	int yes=1;
 	char s[INET6_ADDRSTRLEN];
 	int rv;
+
+	FILE *fp;			//Pointer to file that we want to read.
+	char buf[MAX_FILE_SIZE];
+	if(argc != 2){
+		fprintf(stderr, "usage: server [filename]");
+		exit(1);
+	}
+	fp = fopen(argv[1], 'r');
+	fgets(&buf, MAX_FILE_SIZE, fp); //Retrieve the data to send over the connection.
+	printf("File data: %s", buf);
 
 	memset(&hints, 0, sizeof hints);
 	hints.ai_family = AF_UNSPEC;
@@ -123,7 +135,7 @@ int main(void)
 
 		if (!fork()) { // this is the child process
 			close(sockfd); // child doesn't need the listener
-			if (send(new_fd, "Hello, world!", 13, 0) == -1)
+			if (send(new_fd, buf, MAX_FILE_SIZE, 0) == -1)
 				perror("send");
 			close(new_fd);
 			exit(0);
