@@ -61,8 +61,8 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "usage: server [filename]");
 		exit(1);
 	}
-	fp = fopen(argv[1], 'r');
-	fgets(&buf, MAX_FILE_SIZE, fp); //Retrieve the data to send over the connection.
+	fp = fopen(argv[1], "r");
+	fgets(buf, MAX_FILE_SIZE, fp); //Retrieve the data to send over the connection.
 	printf("File data: %s", buf);
 
 	memset(&hints, 0, sizeof hints);
