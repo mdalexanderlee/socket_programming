@@ -82,9 +82,9 @@ int main(int argc, char *argv[])
 	    perror("recv");
 	    exit(1);
 	}
-	buf[numbytes] = '\0';
 	printf("client: received %i bytes\n", buf[MAXDATASIZE + 1]);
-	printf("client: received '%s'\n",buf);
+	buf[MAXDATASIZE + 1] = '\0';
+	printf("client: received '%s'",buf);
 
 	close(sockfd);
 
