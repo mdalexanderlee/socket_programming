@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
 	    exit(1);
 	}
 	buf[numbytes] = '\0';
-	printf("client: received %i bytes", buf[MAXDATASIZE + 1]);
+	printf("client: received %i bytes\n", buf[MAXDATASIZE + 1]);
 	printf("client: received '%s'\n",buf);
 
 	close(sockfd);
