@@ -56,14 +56,14 @@ int main(int argc, char *argv[])
 	int rv;
 	FILE *fp;			//Pointer to file that we want to read.
 	char buf[MAX_FILE_SIZE + sizeof(int) + 1];
-	
+
 	if(argc != 2){
 		fprintf(stderr, "usage: server [filename]");
 		exit(1);
 	}
 	fp = fopen(argv[1], "r");
 	fgets(buf, MAX_FILE_SIZE + 1, fp); //Retrieve the data to send over the connection.
-	printf("File data: %s\n", buf);
+	printf("File data: '%s'\n", buf);
 	buf[MAX_FILE_SIZE + 1] = strlen(buf);
 	buf[MAX_FILE_SIZE + 1 + sizeof(int)] = '\0';
 	printf("File size: %i\n", buf[MAX_FILE_SIZE + 1]);
