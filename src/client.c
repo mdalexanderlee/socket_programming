@@ -78,18 +78,12 @@ int main(int argc, char *argv[])
 
 	freeaddrinfo(servinfo); // all done with this structure
 
-	// if ((numbytes = recv(sockfd, buf, sizeof(int), 0)) == -1) {
-	//     perror("recv file size");
-	//     exit(1);
-	// }
-	// buf[numbytes] = '\0';
-	// printf("client: received %i bytes\n\n", numbytes);
-
-	if ((numbytes = recv(sockfd, buf, MAXDATASIZE-1, 0)) == -1) {
+	if ((numbytes = recv(sockfd, buf, MAXDATASIZE + sizeof(int) + 1, 0)) == -1) {
 	    perror("recv");
 	    exit(1);
 	}
 	buf[numbytes] = '\0';
+	printf("client: received %i bytes", buf[MAXDATASIZE + 1]);
 	printf("client: received '%s'\n",buf);
 
 	close(sockfd);
