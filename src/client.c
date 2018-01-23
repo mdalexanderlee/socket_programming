@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 	struct addrinfo hints, *servinfo, *p;
 	int rv;
 	char s[INET6_ADDRSTRLEN];
-	char size[sizeof(int)];
+	int size;
 
 	if (argc != 2) {
 	    fprintf(stderr,"usage: client hostname\n");
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 
 	freeaddrinfo(servinfo); // all done with this structure
 
-	if ((numbytes = recv(sockfd, size, sizeof(int), 0)) == -1) {
+	if ((numbytes = recv(sockfd, &size, sizeof(int), 0)) == -1) {
 	    perror("recv file size");
 	    exit(1);
 	}
