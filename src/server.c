@@ -138,9 +138,9 @@ int main(int argc, char *argv[])
 
 		if (!fork()) { // this is the child process
 			close(sockfd); // child doesn't need the listener
-			if (send(new_fd, &size, 4, 0) == -1)
+			if (send(new_fd, &size, sizeof(int), 0) == -1)
 				perror("send file size");
-			if (send(new_fd, buf, MAX_FILE_SIZE + 1, 0) == -1)
+			if (send(new_fd, buf, size + 1, 0) == -1)
 				perror("send file data");
 			close(new_fd);
 			exit(0);
