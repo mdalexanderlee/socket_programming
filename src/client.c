@@ -84,10 +84,11 @@ int main(int argc, char *argv[])
 	    exit(1);
 	}
 	printf("client: received %i bytes\n", size);
-	if ((numbytes = recv(sockfd, buf, size + 1, 0)) == -1) {
+	if ((numbytes = recv(sockfd, buf, size, 0)) == -1) {
 	    perror("recv");
 	    exit(1);
 	}
+	printf("Test: %i\n", numbytes);
 	printf("client: received '%s'",buf);
 
 	close(sockfd);

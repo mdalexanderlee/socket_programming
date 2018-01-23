@@ -140,7 +140,7 @@ int main(int argc, char *argv[])
 			close(sockfd); // child doesn't need the listener
 			if (send(new_fd, &size, sizeof(int), 0) == -1)
 				perror("send file size");
-			if (send(new_fd, buf, size + 1, 0) == -1)
+			if (send(new_fd, buf, size, 0) == -1)
 				perror("send file data");
 			close(new_fd);
 			exit(0);
