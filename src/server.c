@@ -55,7 +55,8 @@ int main(int argc, char *argv[])
 	char s[INET6_ADDRSTRLEN];
 	int rv;
 	FILE *fp;			//Pointer to file that we want to read.
-	char buf[MAX_FILE_SIZE + sizeof(int) + 1];
+	char buf[MAX_FILE_SIZE + 1];
+	int size;
 
 	if(argc != 2){
 		fprintf(stderr, "usage: server [filename]");
@@ -63,10 +64,9 @@ int main(int argc, char *argv[])
 	}
 	fp = fopen(argv[1], "r");
 	fgets(buf, MAX_FILE_SIZE + 1, fp); //Retrieve the data to send over the connection.
+	size = strlen(buf);
+	printf("File size: %i\n", size);
 	printf("File data: '%s'\n", buf);
-	buf[MAX_FILE_SIZE + 1] = strlen(buf);
-	buf[MAX_FILE_SIZE + 1 + sizeof(int)] = '\0';
-	printf("File size: %i\n", buf[MAX_FILE_SIZE + 1]);
 
 	memset(&hints, 0, sizeof hints);
 	hints.ai_family = AF_UNSPEC;
@@ -138,7 +138,9 @@ int main(int argc, char *argv[])
 
 		if (!fork()) { // this is the child process
 			close(sockfd); // child doesn't need the listener
-			if (send(new_fd, buf, MAX_FILE_SIZE + sizeof(int) + 1, 0) == -1)
+			if (send(new_fd, &size, sizeof(int), 0) == -1)
+				perror("send file size");
+			if (send(new_fd, buf, size, 0) == -1)
 				perror("send file data");
 			close(new_fd);
 			exit(0);
