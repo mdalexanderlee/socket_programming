@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
 	if ((numbytes = recv(sockfd, size, sizeof(int), 0)) == -1) {
 	    perror("recv file size");
 	    exit(1);
-	}	
+	}
 	printf("client: received %i bytes\n", size);
 	if ((numbytes = recv(sockfd, buf, MAXDATASIZE + 1, 0)) == -1) {
 	    perror("recv");
