@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 	struct addrinfo hints, *servinfo, *p;
 	int rv;
 	char s[INET6_ADDRSTRLEN];
-	int size;
+	char size[sizeof(int)];
 
 	if (argc != 2) {
 	    fprintf(stderr,"usage: client hostname\n");
