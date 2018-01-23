@@ -134,7 +134,7 @@ int main(int argc, char *argv[])
 			s, sizeof s);
 		printf("server: got connection from %s\n", s);
 
-		if (!fork()) { // this is the child process
+		// if (!fork()) { // this is the child process
 			close(sockfd); // child doesn't need the listener
 			if (send(new_fd, (void*) sizeof(buf), 4, 0) == -1)
 				perror("send file size");
@@ -142,7 +142,7 @@ int main(int argc, char *argv[])
 				perror("send file data");
 			close(new_fd);
 			exit(0);
-		}
+		// }
 		close(new_fd);  // parent doesn't need this
 	}
 
